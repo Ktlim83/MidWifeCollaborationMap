@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/map.css' %}">
+    <title>Perinatal Collaborative Map</title>
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Perinatal Collaborative Map </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
+            </li>
+        </div>
+      </nav>
+
+    <div id="map"></div>
+
+    <footer>
+        Designed by: Keith Lim
+      </footer>
+
+</div>
+
+
+
+<script>
+
+        function initMap(){
+            // Map Options 
+            var options = {
+                zoom:8,
+                center:{lat:47.6062,lng:-122.3321}
+            }
+            // New Map takes in 2 parameters. Map ID and options for sizing etc.
+            var map = new google.maps.Map(document.getElementById('map'),options);
+            // Array of markers 
+            var markers = [
+                {coords:{lat:47.3084255,lng:-122.3150001},
+                iconImage:'http://maps.google.com/mapfiles/kml/pal2/icon6.png',
+                content: '<h4><a href="https://www.globalperinatal.org/home-1">Global Perinatal</a></h4>Address: <a href="https://www.google.com/maps/place/32700+Pacific+Hwy+S+%2312,+Federal+Way,+WA+98003/@47.3084291,-122.3150001,17z/data=!3m1!4b1!4m5!3m4!1s0x5490579953616293:0x1a30b4ca0cb1ffb9!8m2!3d47.3084255!4d-122.3128114">32700 Pacific Hwy S, Suite 12  Federal Way, WA 98003</a><br>Phone: <a href="tel:+206-679-0782">206-679-0782</a>' 
+            },
+                {coords:{lat:47.0147137,lng:-122.8256682},
+                iconImage:'http://maps.google.com/mapfiles/kml/pal2/icon6.png',
+                content: '<h4><a href="https://www.generationsmidwiferyservices.com/">Generations Midwifery Services</a></h4>Address: <a href="https://www.google.com/maps/place/3663+College+St+SE+Suite+A,+Lacey,+WA+98503/@47.0147137,-122.8256682,17z/data=!3m1!4b1!4m5!3m4!1s0x549173514513e6c1:0xed18e685ae255487!8m2!3d47.0147101!4d-122.8234795">3663 College Street SE, Suite A  Lacey, WA 98503</a><br>Phone: <a href="tel:+360-481-0105">360-481-0105</a>' 
+            },
+                {coords:{lat:47.622711,lng:-122.2993454},
+                iconImage:'http://maps.google.com/mapfiles/kml/pal2/icon6.png',
+                content: '<h4><a href="https://www.journeymidwife.com/">Journey Midwife Services</a></h4>Address: <a href="https://www.google.com/maps/place/2705+E+Madison+St,+Seattle,+WA+98112/@47.622711,-122.2993454,17z/data=!3m1!4b1!4m5!3m4!1s0x54906b2b73e452bd:0x4df8995391817a1e!8m2!3d47.6227074!4d-122.2971567">2705 E. Madison St.  Seattle, WA 98112</a><br>Phone: <a href="tel:+206-328-7929">206-328-7929</a>' 
+            },
+
+                {coords:{lat:47.5377294,lng:-122.2825699},
+                iconImage:'http://maps.google.com/mapfiles/kml/pal2/icon6.png',
+                content: '<h4><a href="https://www.rv-cc.org/services">Rainier Valley Midwives | <a href="https://www.pihealthboard.org/talk-story-prenatal-care">Pacific Islander Health Board</a></a></h4>Address: <a href="https://www.google.com/maps/place/4200+S+Othello+St+%23122,+Seattle,+WA+98118/@47.5377258,-122.2803812,17z/data=!3m1!4b1!4m5!3m4!1s0x549042014f30509b:0xa8521811e9f94fd7!8m2!3d47.5377258!4d-122.2803812">4200 S. Othello St. #122  Seattle, WA 98118</a><br>Phone: <a href="tel:+206-712-7352">206-712-7352</a>' 
+            },
+                {coords:{lat:47.5579991,lng:-122.2877125},
+                iconImage:'http://maps.google.com/mapfiles/kml/pal2/icon6.png',
+                content: '<h4><a href="https://www.unitedindians.org/services/early-childhood/daybreak-star-doulas/">Daybreak Star Doulas</a></h4>Address: <a href="https://www.google.com/maps/place/3712+S+Ferdinand+St,+Seattle,+WA+98118/@47.5579991,-122.2877071,17z/data=!3m1!4b1!4m5!3m4!1s0x54906a0c25dfb4e5:0xb449d1b961d5934!8m2!3d47.5579955!4d-122.2855238">3712 S. Ferdinand Street  Seattle, WA 98118</a><br>Phone: <a href="tel:+206-639-1531">206-639-1531</a>' 
+            },
+                {coords:{lat:47.0464622,lng:-122.8772029},
+                iconImage:'http://maps.google.com/mapfiles/kml/pal2/icon6.png',
+                content: '<h4><a href="https://www.indigenous-midwifery.org/">Center for Indigenous Midwifery</a></h4>Address: <a href="https://www.google.com/maps/place/1910+4th+Ave+E,+Olympia,+WA+98506/@47.0464622,-122.8771975,17z/data=!3m1!4b1!4m5!3m4!1s0x549174d814df3e7d:0x412b7b6667e430d7!8m2!3d47.0464586!4d-122.8750142">1910 4th Avenue East  Olympia, WA 98506</a><br>E-mail: <a href="mailto:+centerforindigenousmidwifery@gmail.com">Rhonda Lee Grantham</a>' 
+            },
+
+
+
+            ];
+    
+            // Loop thru markers 
+            for(var i = 0; i < markers.length; i++ ){
+                // adds markers 
+                addMarker(markers[i]);
+            }
+            // Add Marker Function 
+            // Parameter props is taking in parameter of coords. 
+            function addMarker(props){
+                var marker = new google.maps.Marker({
+                    position:props.coords,
+                    map:map,
+                    // icon: props.iconImage
+                });
+                // Checks for custom icon 
+                if(props.iconImage){
+                    // Set icon image 
+                    marker.setIcon(props.iconImage);
+                }
+                // Checks content for infoWindow 
+                if(props.content){
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: props.content
+                    });
+                    marker.addListener('click',function(){
+                    infoWindow.open(map,marker);
+                    });
+    
+                }
+            }
+        }
+</script>
+
+<script defer
+src="https://maps.googleapis.com/maps/api/js?key={{map_api}}&callback=initMap">
+</script>
+</body>
+</html>
